@@ -1,0 +1,50 @@
+# IQ-Line
+
+> IQ-Line Private Limited builds software for hospitals, diagnostic laboratories and medical colleges in India. Products support patient records, laboratory testing, prescriptions, radiology and academic administration.
+
+IQ-Line is based in Noida, India. Contact: info@iqline.co.in
+
+This file lists the same public URLs as https://iqline.co.in/sitemap.xml and https://iqline.co.in/robots.txt.
+
+## Company
+
+- [Healthcare Software for Hospitals and Labs](https://iqline.co.in/): Healthcare Software for Hospitals and Labs
+- [About IQ-Line](https://iqline.co.in/about): Company overview and approach
+- [Products](https://iqline.co.in/products): Full product suite
+- [Contact](https://iqline.co.in/contact): Request a product demonstration
+- [Meet the Founders](https://iqline.co.in/founders): Meet the Founders
+- [Careers at IQ-Line | Current Openings](https://iqline.co.in/careers): Careers at IQ-Line | Current Openings
+- [Blog](https://iqline.co.in/blog): Articles on hospital, laboratory and education workflows
+- [Privacy Policy](https://iqline.co.in/privacy-policy): Privacy Policy
+- [Terms of Service](https://iqline.co.in/terms-and-conditions): Terms of Service
+
+## Products
+
+- [LabSaarthi](https://iqline.co.in/products/lims): LabSaarthi Laboratory Management Software
+- [HospitalSaarthi](https://iqline.co.in/products/hims): HospitalSaarthi Hospital Management Software
+- [MEDUCampus](https://iqline.co.in/products/meducampus): MEDU Campus Medical College Software
+- [SmartParcha](https://iqline.co.in/products/eprescription): Smart Parcha Prescription Digitisation
+- [Paxoris](https://iqline.co.in/products/rims): Paxoris Radiology Software
+
+## Product articles
+
+- [LabSaarthi articles](https://iqline.co.in/products/lims/blog): LabSaarthi articles
+- [HospitalSaarthi articles](https://iqline.co.in/products/hims/blog): HospitalSaarthi articles
+- [MEDUCampus articles](https://iqline.co.in/products/meducampus/blog): MEDUCampus articles
+- [SmartParcha articles](https://iqline.co.in/products/eprescription/blog): SmartParcha articles
+- [Paxoris articles](https://iqline.co.in/products/rims/blog): Paxoris articles
+
+## Articles
+
+- [Where AI can help with hospital paperwork](https://iqline.co.in/blog/ai-revolutionizing-healthcare-workflow-automation-india): Where AI can help with hospital paperwork
+- [What to plan before a healthcare software rollout](https://iqline.co.in/blog/building-abdm-compliant-digital-health-infrastructure): What to plan before a healthcare software rollout
+- [Tracking a laboratory sample from collection to report](https://iqline.co.in/products/lims/blog/lims-zero-error-lab-barcode-workflows): Tracking a laboratory sample from collection to report
+- [Reducing repeated work at the OPD registration desk](https://iqline.co.in/products/hims/blog/hims-reducing-patient-wait-times-digital-opd): Reducing repeated work at the OPD registration desk
+- [Making clinical logbooks easier for students and faculty to review](https://iqline.co.in/products/meducampus/blog/meducampus-cbme-compliance-digital-logbooks): Making clinical logbooks easier for students and faculty to review
+- [What to check when evaluating prescription recognition](https://iqline.co.in/products/eprescription/blog/eprescription-ai-handwriting-recognition-ocr): What to check when evaluating prescription recognition
+- [Connecting imaging requests with radiology reports](https://iqline.co.in/products/rims/blog/rims-radiology-workflow-digital-transformation): Connecting imaging requests with radiology reports
+
+## Optional
+
+- [Sitemap](https://iqline.co.in/sitemap.xml)
+- [Robots](https://iqline.co.in/robots.txt)

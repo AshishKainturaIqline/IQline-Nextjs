@@ -1,0 +1,42 @@
+# IQ-Line — https://iqline.co.in
+# Keep this file in sync with app/robots.js, app/sitemap.js and llms.txt.
+# Regenerate: npm run sync:seo
+
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://iqline.co.in/sitemap.xml
+# LLM index: https://iqline.co.in/llms.txt
