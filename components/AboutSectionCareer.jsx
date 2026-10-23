@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ImageIcon, ZoomInIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -63,6 +63,11 @@ function PhotoCard({
   const [status, setStatus] = useState(
     "loading"
   );
+  const imgRef = useRef(null);
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete) setStatus(img.naturalWidth > 0 ? "ready" : "missing");
+  }, []);
   return <motion.figure variants={riseIn} className="group relative">
       <button
     type="button"
@@ -75,6 +80,7 @@ function PhotoCard({
     )}
   >
         <img
+    ref={imgRef}
     src={photo.src}
     alt={photo.title}
     loading="lazy"

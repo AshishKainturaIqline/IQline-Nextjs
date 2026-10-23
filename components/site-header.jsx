@@ -28,8 +28,8 @@ import {
 } from "@/components/ui/sheet";
 import { assetSrc, cn } from "@/lib/utils";
 const primaryNav = [
-  { to: "/about", label: "About" },
-  // { to: "/about#why", label: "Why Us" },
+  { to: "/about-us", label: "About" },
+  // { to: "/about-us#why", label: "Why Us" },
   { to: "/products", label: "Products" },
   { to: "/founders", label: "Founders" },
   { to: "/blog", label: "Blogs" },
@@ -94,7 +94,7 @@ function MobileNav() {
         </ScrollArea>
         <div className="border-t border-border p-4">
           <Button className="w-full" asChild>
-            <Link href="/contact" onClick={() => setOpen(false)}>
+            <Link href="/contact-us" onClick={() => setOpen(false)}>
               Book a demo
             </Link>
           </Button>
@@ -173,7 +173,7 @@ function SiteHeader() {
         <div className="relative z-40 flex items-center gap-2">
           <ModeToggle />
           <Button size="sm" className="hidden sm:inline-flex" asChild>
-            <Link href="/contact">Request a demo</Link>
+            <Link href="/contact-us">Request a demo</Link>
           </Button>
           <MobileNav />
         </div>

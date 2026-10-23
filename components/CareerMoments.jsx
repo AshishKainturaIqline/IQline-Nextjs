@@ -41,12 +41,17 @@ const moments = [
 ];
 function MomentCard({ moment }) {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef(null);
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
   return <motion.figure
     variants={riseIn}
     className="group relative flex h-[340px] w-[78vw] shrink-0 snap-start flex-col justify-end overflow-hidden sm:h-[340px] sm:w-[22rem] lg:h-[360px] lg:w-[24rem]"
   >
       <div className="relative flex h-full min-h-[320px] max-h-[360px] w-full flex-col justify-end overflow-hidden rounded-3xl border border-border/70 bg-muted/40 shadow-sm transition-all duration-500 group-hover:-translate-y-1.5 group-hover:border-primary/40 group-hover:shadow-xl">
         <img
+    ref={imgRef}
     src={moment.src}
     alt={moment.title}
     loading="lazy"

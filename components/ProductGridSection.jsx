@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionTemplate,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform
@@ -68,9 +67,7 @@ const gridSpan = [
   "sm:col-span-2 lg:col-span-2 lg:col-start-4"
 ];
 function useMediaQuery(query) {
-  const [matches, setMatches] = useState(
-    () => typeof window !== "undefined" && window.matchMedia(query).matches
-  );
+  const [matches, setMatches] = useState(false);
   useEffect(() => {
     const mql = window.matchMedia(query);
     const sync = () => setMatches((prev) => prev === mql.matches ? prev : mql.matches);
@@ -295,7 +292,7 @@ function FlowProductStage({ animate }) {
     </section>;
 }
 function ProductGridSection() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const canPin = useMediaQuery("(min-width: 1024px) and (min-height: 620px)");
   if (prefersReducedMotion || !canPin) {
     return <FlowProductStage animate={!prefersReducedMotion} />;

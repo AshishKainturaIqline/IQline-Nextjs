@@ -292,7 +292,7 @@ function HomePage() {
 
         <Suspense
     fallback={<section className="scroll-mt-16 border-b border-border bg-background pt-20 sm:pt-28">
-              <div className="aspect-video w-full animate-pulse bg-muted/50" />
+              <div className="aspect-video w-full animate-pulse bg-muted/50 " />
             </section>}
   >
           <MainVideo />

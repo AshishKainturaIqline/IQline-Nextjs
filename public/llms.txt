@@ -9,9 +9,9 @@ This file lists the same public URLs as https://iqline.co.in/sitemap.xml and htt
 ## Company
 
 - [Healthcare Software for Hospitals and Labs](https://iqline.co.in/): Healthcare Software for Hospitals and Labs
-- [About IQ-Line](https://iqline.co.in/about): Company overview and approach
+- [About IQ-Line](https://iqline.co.in/about-us): Company overview and approach
 - [Products](https://iqline.co.in/products): Full product suite
-- [Contact](https://iqline.co.in/contact): Request a product demonstration
+- [Contact](https://iqline.co.in/contact-us): Request a product demonstration
 - [Meet the Founders](https://iqline.co.in/founders): Meet the Founders
 - [Careers at IQ-Line | Current Openings](https://iqline.co.in/careers): Careers at IQ-Line | Current Openings
 - [Blog](https://iqline.co.in/blog): Articles on hospital, laboratory and education workflows

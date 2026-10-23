@@ -141,7 +141,7 @@ function MainVideo() {
     id="watch"
     initial="hidden"
     animate={inView ? "visible" : "hidden"}
-    className="scroll-mt-16 border-b border-border bg-background pt-20 pb-0 sm:pt-28"
+    className="scroll-mt-16 border-b border-border bg-background pt-20 pb-20 sm:pt-28 sm:pb-28"
   >
       <motion.div
     variants={fadeUp}
@@ -165,13 +165,13 @@ function MainVideo() {
     }}
   >
         <div
-    className="relative w-full overflow-hidden border-y border-border bg-black"
+    className="relative mx-auto aspect-video w-full max-w-[calc((100svh-5rem)*16/9)] overflow-hidden"
     onMouseMove={revealChrome}
   >
             {!playing && !loadError && <img
     src={assetSrc(thumbnailSrc)}
     alt="IQ-Line video preview"
-    className="absolute inset-0 z-[1] h-full w-full object-cover"
+    className="absolute inset-0 z-[1] h-full w-full object-contain"
   />}
 
             <video
@@ -179,7 +179,7 @@ function MainVideo() {
     src={videoSrc}
     playsInline
     preload="none"
-    className="relative z-0 aspect-video w-full bg-black object-cover"
+    className="relative z-0 h-full w-full object-contain"
     onPlay={() => {
       setPlaying(true);
       revealChrome();

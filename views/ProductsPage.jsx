@@ -43,7 +43,7 @@ function ProductsPage() {
     className="bg-teal-500 font-semibold text-slate-900 shadow-lg shadow-teal-500/25 hover:bg-teal-400"
     asChild
   >
-                  <Link href="/contact">Request a demo</Link>
+                  <Link href="/contact-us">Request a demo</Link>
                 </Button>
               </div>
             </motion.div>

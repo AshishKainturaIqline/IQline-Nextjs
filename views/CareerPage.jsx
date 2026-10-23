@@ -143,7 +143,7 @@ function CareerPage() {
     className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
     asChild
   >
-                  <Link href="/about">About IQ-Line</Link>
+                  <Link href="/about-us">About IQ-Line</Link>
                 </Button>
               </div>
             </motion.div>

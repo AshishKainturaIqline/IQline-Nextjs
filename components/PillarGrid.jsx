@@ -41,9 +41,9 @@ const iconVariants = {
     y: -3,
     rotate: [0, -6, 6, 0],
     transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 12
+      scale: { type: "spring", stiffness: 300, damping: 12 },
+      y: { type: "spring", stiffness: 300, damping: 12 },
+      rotate: { type: "tween", duration: 0.45, ease: "easeInOut" }
     }
   }
 };

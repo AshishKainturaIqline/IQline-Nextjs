@@ -63,7 +63,7 @@ function AboutPage() {
     className="border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white"
     asChild
   >
-                  <Link href="/contact">Request a demo</Link>
+                  <Link href="/contact-us">Request a demo</Link>
                 </Button>
               </div>
             </motion.div>

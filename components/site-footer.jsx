@@ -1,255 +1,368 @@
-"use client"
 
-import Link from "next/link"
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
-;
-import { Separator } from "@/components/ui/separator"
+import {
+  MailIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ArrowRight,
+} from "lucide-react";
+
+import { Separator } from "@/components/ui/separator";
 import { assetSrc } from "@/lib/utils";
 import logoDark from "@/assets/logo/Logo-Darktheme.svg";
 import logoLight from "@/assets/logo/Logo-Lighttheme.svg";
 import makeInIndia from "@/assets/make_in_india.png";
+
 const footerLinks = {
   products: [
     { to: "/products/lims", label: "LabSaarthi: LIMS" },
     { to: "/products/hims", label: "HospitalSaarthi: HIMS" },
     { to: "/products/meducampus", label: "MEDU Campus" },
     { to: "/products/eprescription", label: "Smart Parcha" },
-    { to: "/products/rims", label: "Paxoris: RIMS" }
+    { to: "/products/rims", label: "Paxoris: RIMS" },
   ],
   company: [
-    { to: "/about#why", label: "Why IQ-Line" },
-    { to: "/about", label: "About" },
+    { to: "/about-us#why", label: "Why IQ-Line" },
+    { to: "/about-us", label: "About" },
     { to: "/blog", label: "Blogs" },
     { to: "/careers", label: "Careers" },
-    { to: "/contact", label: "Contact" }
-  ]
+    { to: "/contact-us", label: "Contact" },
+  ],
 };
+
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.07 } }
+  visible: {
+    transition: { staggerChildren: 0.07 },
+  },
 };
+
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
 };
+
+function SocialLink({ href, label, children }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="inline-flex items-center gap-2 rounded-md
+        text-muted-foreground transition-colors
+        hover:text-primary focus-visible:outline-none
+        focus-visible:ring-2 focus-visible:ring-primary
+        focus-visible:ring-offset-2"
+    >
+      {children}
+      <span className="text-xs">{label}</span>
+    </a>
+  );
+}
+
 function SiteFooter() {
-  return <footer className="relative overflow-hidden border-t border-border bg-muted/40 text-foreground dark:bg-muted/25">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+  return (
+    <footer className="relative isolate overflow-hidden border-t border-border bg-muted/40 text-foreground dark:bg-muted/25">
+      {/* Top accent */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="pointer-events-none absolute top-0 left-1/2 size-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[100px] dark:bg-primary/10" />
+      {/* Subtle background glow */}
+      <div className="pointer-events-none absolute left-1/4 top-0 -z-10 size-[420px] -translate-y-1/2 rounded-full bg-primary/[0.06] blur-[100px] dark:bg-primary/10" />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, margin: "-80px" }}
-    variants={stagger}
-    className="grid gap-12 md:grid-cols-2 lg:grid-cols-4"
-  >
-          {
-    /* Brand */
-  }
-          <motion.div variants={fadeUp} className="space-y-4 lg:col-span-1">
-            <div className="flex items-center">
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+          className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12"
+        >
+          {/* Premium Brand Section */}
+          <motion.div
+            variants={fadeUp}
+            className="space-y-5 lg:pr-4"
+          >
+            {/* Brand logo */}
+            <Link
+              href="/"
+              aria-label="IQ-Line homepage"
+              className="inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
               <img
-    src={assetSrc(logoLight)}
-    alt="IQ-Line"
-    width={228}
-    height={97}
-    className="h-24 w-auto dark:hidden"
-  />
+                src={assetSrc(logoLight)}
+                alt="IQ-Line"
+                width={228}
+                height={97}
+                className="h-16 w-auto object-contain dark:hidden"
+              />
+
               <img
-    src={assetSrc(logoDark)}
-    alt="IQ-Line"
-    width={228}
-    height={97}
-    className="hidden h-24 w-auto dark:block"
-  />
+                src={assetSrc(logoDark)}
+                alt="IQ-Line"
+                width={228}
+                height={97}
+                className="hidden h-16 w-auto object-contain dark:block"
+              />
+            </Link>
+
+            {/* Brand heading */}
+            <div className="space-y-3">
+              <h3 className="max-w-sm text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
+                Technology that moves{" "}
+                <span className="text-primary">
+                  healthcare forward.
+                </span>
+              </h3>
+
+              <p className="max-w-sm text-sm leading-7 text-muted-foreground">
+                Software for hospitals, laboratories and
+                medical colleges, covering clinical,
+                diagnostic and academic workflows.
+              </p>
             </div>
-            <p className="text-sm leading-relaxed text-pretty text-muted-foreground">
-            Software for hospitals, laboratories and medical colleges, covering clinical, diagnostic and academic workflows.
-            </p>
-            <p className="text-xs font-medium text-primary/90">
-              Elevating Lives Digitally
-            </p>
-            {
-    /* Make in India */
-  }
-            <div className="flex items-center pt-2">
-              <img
-    src={assetSrc(makeInIndia)}
-    alt="Make in India"
-    className="h-24 w-auto object-contain"
-  />
+
+            {/* Brand tagline */}
+            <div className="border-l-2 border-primary py-1 pl-3">
+              <p className="text-sm font-semibold tracking-wide text-foreground">
+                Elevating Lives Digitally
+              </p>
             </div>
+
+            {/* Make in India */}
+            <div className="flex items-center pt-1">
+              <img
+                src={assetSrc(makeInIndia)}
+                alt="Make in India"
+                width={140}
+                height={70}
+                loading="lazy"
+                className="h-14 w-auto object-contain opacity-90 transition-opacity duration-300 hover:opacity-100"
+              />
+            </div>
+
+            {/* Contact CTA */}
+            {/* <Link
+              href="/contact-us"
+              className="group flex max-w-md items-center gap-3 rounded-xl border border-primary/30 bg-primary/[0.04] p-4 transition-all duration-300 hover:border-primary/60 hover:bg-primary/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <MailIcon className="size-5" />
+              </span>
+
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-foreground">
+                  Let&apos;s build better healthcare workflows.
+                </span>
+
+                <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                  Find the right solution for your institution.
+                </span>
+              </span>
+
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform duration-300 group-hover:translate-x-1">
+                <ArrowRight className="size-4" />
+              </span>
+            </Link> */}
           </motion.div>
 
-          {
-    /* Products */
-  }
+          {/* Products */}
           <motion.div variants={fadeUp}>
             <Link
-    href="/products"
-    className="mb-4 inline-block text-xs font-semibold tracking-widest text-muted-foreground uppercase transition-colors hover:text-primary"
-  >
+              href="/products"
+              className="mb-5 inline-block text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary"
+            >
               Products
             </Link>
-            <ul className="space-y-2.5 text-sm">
-              {footerLinks.products.map((link) => <li key={link.to}>
+
+            <ul className="space-y-3">
+              {footerLinks.products.map((link) => (
+                <li key={link.to}>
                   <Link
-    href={link.to}
-    className="text-muted-foreground transition-colors hover:text-primary"
-  >
+                    href={link.to}
+                    className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                  >
                     {link.label}
                   </Link>
-                </li>)}
+                </li>
+              ))}
             </ul>
           </motion.div>
 
-          {
-    /* Company */
-  }
+          {/* Company */}
           <motion.div variants={fadeUp}>
-            <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Company
             </p>
-            <ul className="space-y-2.5 text-sm">
-              {footerLinks.company.map((link) => <li key={link.label}>
+
+            <ul className="space-y-3">
+              {footerLinks.company.map((link) => (
+                <li key={link.to}>
                   <Link
-    href={link.to}
-    className="text-muted-foreground transition-colors hover:text-primary"
-  >
+                    href={link.to}
+                    className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                  >
                     {link.label}
                   </Link>
-                </li>)}
+                </li>
+              ))}
             </ul>
           </motion.div>
 
-          {
-    /* Contact */
-  }
-          <motion.div variants={fadeUp} className="space-y-3 text-sm">
-            <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+          {/* Contact and Social Links */}
+          <motion.div
+            variants={fadeUp}
+            className="space-y-5 text-sm"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Get in touch
             </p>
+
             <a
-    href="mailto:info@iqline.co.in"
-    className="flex items-start gap-2.5 text-muted-foreground transition-colors hover:text-primary"
-  >
-              <MailIcon className="mt-0.5 size-4 shrink-0" />
-              info@iqline.co.in
-            </a>
-            <a
-    href="tel:+918384020035"
-    className="flex items-start gap-2.5 text-muted-foreground transition-colors hover:text-primary"
-  >
-              <PhoneIcon className="mt-0.5 size-4 shrink-0" />
-              +91 83840 20035
-            </a>
-            <p className="flex items-start gap-2.5 text-muted-foreground">
-              <MapPinIcon className="mt-0.5 size-4 shrink-0" />
-              <span>
-                2nd Floor, Pinnacle Tower, Noida-Greater Noida Expy, Sector 142, Noida, Uttar Pradesh 201305
+              href="mailto:info@iqline.co.in"
+              className="group flex items-start gap-3 text-muted-foreground transition-colors hover:text-primary"
+            >
+              <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-background/60 transition-colors group-hover:border-primary/30 group-hover:bg-primary/5">
+                <MailIcon className="size-4" />
               </span>
-            </p>
-            <div className="flex gap-3 pt-1">
-              <a
+              <span className="pt-2 break-all">
+                info@iqline.co.in
+              </span>
+            </a>
+
+            <a
+              href="tel:+918384020035"
+              className="group flex items-start gap-3 text-muted-foreground transition-colors hover:text-primary"
+            >
+              <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-background/60 transition-colors group-hover:border-primary/30 group-hover:bg-primary/5">
+                <PhoneIcon className="size-4" />
+              </span>
+              <span className="pt-2">+91 83840 20035</span>
+            </a>
+
+            <div className="flex items-start gap-3 text-muted-foreground">
+              <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-background/60">
+                <MapPinIcon className="size-4" />
+              </span>
+              <address className="pt-1.5 not-italic leading-6">
+                2nd Floor, Pinnacle Tower,
+                <br />
+                Noida-Greater Noida Expy,
+                <br />
+                Sector 142, Noida,
+                <br />
+                Uttar Pradesh 201305
+              </address>
+            </div>
+
+            <Separator className="!my-6 bg-border" />
+
+            {/* Social media */}
+            <div className="space-y-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Follow IQ-Line
+              </p>
+
+              <div className="flex flex-wrap gap-x-4 gap-y-3">
+  <SocialLink
     href="https://www.linkedin.com/company/iq-line-pvt-ltd/"
-    target="_blank"
-    rel="noreferrer"
-    aria-label="LinkedIn"
-    className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-primary"
+    label="LinkedIn"
   >
-                {
-    /* LinkedIn */
-  }
-                <svg
-    className="size-4 shrink-0"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    aria-hidden
-  >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
-                <span className="text-xs">LinkedIn</span>
-              </a>
-              <a
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="size-4"
+      aria-hidden="true"
+    >
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.21 0 22.23 0Z" />
+    </svg>
+  </SocialLink>
+
+  <SocialLink
     href="https://www.facebook.com/profile.php?id=61586462710135"
-    target="_blank"
-    rel="noreferrer"
-    aria-label="Facebook"
-    className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-primary"
+    label="Facebook"
   >
-                {
-    /* Facebook */
-  }
-                <svg
-    className="size-4 shrink-0"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    aria-hidden
-  >
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                <span className="text-xs">Facebook</span>
-              </a>
-              <a
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="size-4"
+      aria-hidden="true"
+    >
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.019 4.388 11.016 10.125 11.927v-8.437H7.078v-3.49h3.047V9.41c0-3.026 1.792-4.7 4.533-4.7 1.312 0 2.686.236 2.686.236v2.963h-1.514c-1.491 0-1.956.929-1.956 1.882v2.282h3.328l-.532 3.49h-2.796V24C19.612 23.089 24 18.092 24 12.073Z" />
+    </svg>
+  </SocialLink>
+
+  <SocialLink
     href="https://www.instagram.com/_iqline_/"
-    target="_blank"
-    rel="noreferrer"
-    aria-label="Instagram"
-    className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-primary"
+    label="Instagram"
   >
-                {
-    /* Instagram */
-  }
-                <svg
-    className="size-4 shrink-0"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    aria-hidden
-  >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-                <span className="text-xs">Instagram</span>
-              </a>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className="size-4"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" />
+    </svg>
+  </SocialLink>
+</div>
             </div>
           </motion.div>
         </motion.div>
 
+        {/* Footer bottom */}
         <Separator className="my-10 bg-border" />
 
         <motion.div
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-    className="flex flex-col items-center justify-between gap-3 text-xs text-muted-foreground sm:flex-row"
-  >
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center justify-between gap-4 text-center text-xs text-muted-foreground sm:flex-row sm:text-left"
+        >
           <p>
-            © {2026} IQ-Line Pvt Ltd. All rights reserved.
+            © {new Date().getFullYear()} IQ-Line Pvt Ltd.
+            All rights reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
             <Link
-    href="/privacy-policy"
-    className="transition-colors hover:text-primary"
-  >
+              href="/privacy-policy"
+              className="transition-colors hover:text-primary"
+            >
               Privacy Policy
             </Link>
+
+            <span className="hidden h-3 w-px bg-border sm:block" />
+
             <Link
-    href="/terms-and-conditions"
-    className="transition-colors hover:text-primary"
-  >
+              href="/terms-and-conditions"
+              className="transition-colors hover:text-primary"
+            >
               Terms of Service
             </Link>
-            <span className="text-primary/70">
-              Leading AI-first healthcare automation · India
+
+            <span className="hidden h-3 w-px bg-border sm:block" />
+
+            <span className="text-primary/80">
+              Elevating Lives Digitally · India
             </span>
           </div>
         </motion.div>
       </div>
-    </footer>;
+    </footer>
+  );
 }
-export {
-  SiteFooter
-};
+
+export { SiteFooter };
