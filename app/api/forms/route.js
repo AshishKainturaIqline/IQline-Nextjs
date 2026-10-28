@@ -27,7 +27,8 @@ const FIELD_LABELS = {
 }
 
 const FIELD_ORDER = Object.keys(FIELD_LABELS)
-const HIDDEN_FIELDS = new Set(["formType", "resumeBase64", "resumeFileName", "to"])
+const HIDDEN_FIELDS = new Set(["formType", "resumeBase64", "resumeFileName", "resumeSize", "to"])
+const MAX_RESUME_BYTES = 1024 * 1024
 
 function escapeHtml(text) {
   return String(text)
@@ -83,26 +84,85 @@ function buildRows(data) {
     .join("")
 }
 
+function resumeExtension(fileName) {
+  const name = String(fileName || "").toLowerCase()
+  const dot = name.lastIndexOf(".")
+  return dot === -1 ? "" : name.slice(dot)
+}
+
+function resumeKind(extension, buffer) {
+  const header = buffer.subarray(0, 8)
+  if (extension === ".pdf" && buffer.subarray(0, 5).toString("latin1") === "%PDF-") {
+    return "application/pdf"
+  }
+  if (
+    extension === ".doc" &&
+    header[0] === 0xd0 &&
+    header[1] === 0xcf &&
+    header[2] === 0x11 &&
+    header[3] === 0xe0
+  ) {
+    return "application/msword"
+  }
+  if (
+    extension === ".docx" &&
+    header[0] === 0x50 &&
+    header[1] === 0x4b &&
+    header[2] === 0x03 &&
+    header[3] === 0x04
+  ) {
+    return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  }
+  return ""
+}
+
 function resumeAttachment(data) {
-  if (!data.resumeBase64 || !data.resumeFileName) return undefined
+  const hasResume = Boolean(data.resumeBase64 || data.resumeFileName)
+  if (!hasResume) {
+    if (data.formType === "career_contact") {
+      return { error: "Please attach a resume (PDF or DOC, up to 1024 KB)." }
+    }
+    return {}
+  }
+
+  if (!data.resumeBase64 || !data.resumeFileName) {
+    return { error: "Please attach a resume (PDF or DOC, up to 1024 KB)." }
+  }
+
   const rawValue = String(data.resumeBase64)
   const parts = rawValue.split(",")
   const raw = parts.length > 1 ? parts[1] : parts[0]
-  if (!raw || raw.length > 7_000_000) return undefined
-
-  let contentType = "application/pdf"
-  if (parts.length > 1 && parts[0].includes(":")) {
-    contentType = parts[0].split(":")[1].split(";")[0] || contentType
+  if (!raw || raw.length > 1_400_000) {
+    return { error: "Resume must be 1024 KB or smaller." }
   }
 
-  const filename = String(data.resumeFileName).replace(/[^\w.\- ]/g, "") || "resume"
-  return [
-    {
-      filename,
-      content: Buffer.from(raw, "base64"),
-      contentType,
-    },
-  ]
+  const content = Buffer.from(raw, "base64")
+  if (!content.length || content.length > MAX_RESUME_BYTES) {
+    const kilobytes = Math.ceil(content.length / 1024)
+    return {
+      error: content.length
+        ? `Resume must be 1024 KB or smaller. This file is ${kilobytes} KB.`
+        : "The resume file is empty.",
+    }
+  }
+
+  const extension = resumeExtension(data.resumeFileName)
+  const contentType = resumeKind(extension, content)
+  if (!contentType) {
+    return { error: "Resume must be a PDF or Word file (.pdf, .doc, or .docx)." }
+  }
+
+  const filename = String(data.resumeFileName).replace(/[^\w.\- ]/g, "") || `resume${extension}`
+  return {
+    attachments: [
+      {
+        filename,
+        content,
+        contentType,
+        contentDisposition: "attachment",
+      },
+    ],
+  }
 }
 
 export async function POST(request) {
@@ -130,6 +190,11 @@ export async function POST(request) {
   }
 
   const data = { ...payload, timestamp: new Date().toISOString() }
+  const resume = resumeAttachment(data)
+  if (resume.error) {
+    return Response.json({ success: false, message: resume.error })
+  }
+
   const title = TITLES[data.formType] || "New Website Form Submission"
   const detail = data.productInterest || data.subject || data.position || ""
   const subject = `${title}: ${data.name || "Unknown"}${detail ? ` — ${detail}` : ""}`.replace(
@@ -159,8 +224,11 @@ export async function POST(request) {
       html:
         `<h2>${escapeHtml(title)}</h2>` +
         `<table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px">${buildRows(data)}</table>` +
+        (resume.attachments
+          ? "<p>The resume is attached to this email and can be downloaded from the attachment.</p>"
+          : "") +
         "<hr><p><small>Submitted via IQ-Line website</small></p>",
-      attachments: resumeAttachment(data),
+      attachments: resume.attachments,
     })
 
     return Response.json({ success: true, message: "Form submitted successfully" })
