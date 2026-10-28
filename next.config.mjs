@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverExternalPackages: ["nodemailer"],
   turbopack: {
     root: import.meta.dirname,
     rules: {

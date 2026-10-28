@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 ;
 import { motion } from "framer-motion";
 import { ArrowRightIcon } from "lucide-react";
@@ -28,6 +28,8 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.09 } }
 };
 const hasLiveOpenings = careerOpenings.length > 0;
+const careerPortalUrl =
+  "https://career.hrone.cloud/career-portal?appId=s9v8ieloV_N6BR2Oa1aS1l1XZ9zHrGj1e5W1Fz02H6oi9EA8x0FApFrA5HxzbIqcLPJg33y4SZ7W_dWrehekqa_G2sphbJ_tX3Hrs0pvmvUD130hq1SIBXXP62miG7AC&dc=poctgroup&rqt=m8jH4bpBQbccEU8MZpSP5Q&cc=eaqzS8e-weZZc3W_dw_T1Q";
 function OpeningCard({ job }) {
   return <Card className="flex h-full flex-col">
       <CardHeader>
@@ -88,7 +90,6 @@ function OpeningCard({ job }) {
     </Card>;
 }
 function CareerPage() {
-  const openingsSectionRef = useRef(null);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -130,12 +131,11 @@ function CareerPage() {
                 {hasLiveOpenings ? <Button
     size="lg"
     className="bg-teal-500 font-semibold text-slate-900 shadow-lg shadow-teal-500/25 hover:bg-teal-400"
-    onClick={() => openingsSectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    })}
+    asChild
   >
-                    View open roles <ArrowRightIcon className="size-4" />
+                    <a href={careerPortalUrl} target="_blank" rel="noopener noreferrer">
+                      View open roles <ArrowRightIcon className="size-4" />
+                    </a>
                   </Button> : null}
                 <Button
     size="lg"
@@ -157,7 +157,6 @@ function CareerPage() {
   }
         <section
     id="openings"
-    ref={openingsSectionRef}
     className="scroll-mt-20 border-b border-border bg-muted/20 py-20 sm:py-28"
   >
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

@@ -14,7 +14,7 @@ Dev server: [http://localhost:3000](http://localhost:3000)
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL` for contact and career forms.
+Copy `.env.example` to `.env.local` and set the SMTP values. Contact and career forms are sent from `/api/forms`. While testing, both `MAIL_TO_GENERAL` and `MAIL_TO_CAREERS` can point at one inbox.
 
 ## Re-sync from Vite source
 
