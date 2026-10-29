@@ -171,6 +171,8 @@ function MainVideo() {
             {!playing && !loadError && <img
     src={assetSrc(thumbnailSrc)}
     alt="IQ-Line video preview"
+    loading="lazy"
+    decoding="async"
     className="absolute inset-0 z-[1] h-full w-full object-contain"
   />}
 

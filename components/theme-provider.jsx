@@ -73,6 +73,10 @@ function ThemeProvider({
     (nextTheme) => {
       const root = document.documentElement;
       const resolvedTheme = nextTheme === "system" ? getSystemTheme() : nextTheme;
+      const otherTheme = resolvedTheme === "dark" ? "light" : "dark";
+      if (root.classList.contains(resolvedTheme) && !root.classList.contains(otherTheme)) {
+        return;
+      }
       const restoreTransitions = disableTransitionOnChange ? disableTransitionsTemporarily() : null;
       root.classList.remove("light", "dark");
       root.classList.add(resolvedTheme);

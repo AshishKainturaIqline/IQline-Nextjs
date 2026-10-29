@@ -14,8 +14,8 @@ import {
   SparklesIcon,
   TrendingUpIcon
 } from "lucide-react";
-import ayushPhoto from "@/assets/team/ayush.jpg";
-import amitPhoto from "@/assets/team/amit.png";
+import ayushPhoto from "@/assets/team/ayush.webp";
+import amitPhoto from "@/assets/team/amit.webp";
 import { Badge } from "@/components/ui/badge";
 import { assetSrc } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -98,7 +98,7 @@ const founders = [
   }
 ];
 function ColumnLabel({ children }) {
-  return <p className="mb-4 text-[0.65rem] font-semibold tracking-[0.18em] text-muted-foreground/80 uppercase">
+  return <p className="mb-4 text-[0.65rem] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
       {children}
     </p>;
 }
@@ -113,11 +113,7 @@ function FoundersPage() {
       <main className="flex-1 overflow-x-hidden">
         <PageHeroShell>
           <div className="mx-auto max-w-[84rem] px-4 sm:px-6 lg:px-8">
-            <motion.div
-    initial={{ opacity: 0, y: 24 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-  >
+            <motion.div className="animate-hero-rise">
               <Badge className="mb-4 border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-teal-300 hover:bg-teal-500/15">
                 Leadership
               </Badge>

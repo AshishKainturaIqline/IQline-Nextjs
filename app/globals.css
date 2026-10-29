@@ -209,6 +209,132 @@
   animation: spin-slow 20s linear infinite;
 }
 
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(28px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-in {
+  animation: hero-fade-up 0.6s ease-out both;
+}
+
+/* No opacity fade: an element that starts transparent delays Largest Contentful Paint. */
+.animate-hero-rise {
+  animation: hero-rise 0.6s ease-out both;
+}
+
+@keyframes hero-beam-x {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes hero-beam-x-reverse {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes hero-beam-y {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes hero-beam-y-reverse {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes hero-node-pulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes hero-node-ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.hero-beam-x,
+.hero-beam-x-reverse,
+.hero-beam-y,
+.hero-beam-y-reverse {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+.hero-beam-x {
+  animation-name: hero-beam-x;
+}
+.hero-beam-x-reverse {
+  animation-name: hero-beam-x-reverse;
+}
+.hero-beam-y {
+  animation-name: hero-beam-y;
+}
+.hero-beam-y-reverse {
+  animation-name: hero-beam-y-reverse;
+}
+.hero-node {
+  animation: hero-node-pulse 3s ease-in-out infinite both;
+}
+.hero-node-ripple {
+  animation: hero-node-ripple 2s ease-out infinite both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-in,
+  .animate-hero-rise,
+  .hero-beam-x,
+  .hero-beam-x-reverse,
+  .hero-beam-y,
+  .hero-beam-y-reverse,
+  .hero-node-ripple {
+    animation: none;
+  }
+}
+
 @keyframes trusted-slider {
   0% {
     transform: translateX(0%);

@@ -23,7 +23,7 @@ import { WhyIqLine } from "@/components/WhyIqLine";
 import { AboutFounders } from "@/components/AboutFounders";
 import { HomeBlogs } from "@/components/HomeBlogs";
 import { ContactSection } from "@/components/ContactSection";
-import { fadeUp, stagger } from "@/components/home-section-primitives";
+import { fadeUp } from "@/components/home-section-primitives";
 import {
   HOME_SECTION_QUERY,
   homeSectionTo,
@@ -69,7 +69,7 @@ function AnimatedStat({
   return <motion.div
     ref={ref}
     variants={fadeUp}
-    className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-md"
+    className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 text-center"
   >
       <p
     className="font-heading text-4xl font-bold tabular-nums text-white sm:text-5xl"
@@ -168,11 +168,8 @@ function TrustedAcrossIndia() {
       </div>
     </div>;
 }
-function HomePage() {
+function HomeSectionScroll() {
   const searchParams = useSearchParams();
-  const [demoProduct, setDemoProduct] = useState("");
-  const [demoOpen, setDemoOpen] = useState(false);
-  const prefillProduct = demoProduct || searchParams.get("product") || "";
   useEffect(() => {
     const sectionParam = searchParams.get(HOME_SECTION_QUERY);
     if (!sectionParam || !isHomeSectionId(sectionParam)) {
@@ -199,8 +196,20 @@ function HomePage() {
       window.clearTimeout(timeoutId);
     };
   }, [searchParams]);
+  return null;
+}
+function HomeContactSection({ demoProduct }) {
+  const searchParams = useSearchParams();
+  return <ContactSection prefillProduct={demoProduct || searchParams.get("product") || ""} />;
+}
+const heroStep = (index) => ({ animationDelay: `${index * 90}ms` });
+function HomePage() {
+  const [demoProduct, setDemoProduct] = useState("");
+  const [demoOpen, setDemoOpen] = useState(false);
   return <>
-      
+      <Suspense fallback={null}>
+        <HomeSectionScroll />
+      </Suspense>
       <BookDemoDialog
     open={demoOpen}
     onOpenChange={setDemoOpen}
@@ -212,39 +221,34 @@ function HomePage() {
           <HeroBackground />
 
           <div className="relative z-20 mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
-            <motion.div
-    className="mx-auto max-w-4xl text-center"
-    initial="hidden"
-    animate="visible"
-    variants={stagger}
-  >
-              <motion.div variants={fadeUp}>
+            <div className="mx-auto max-w-4xl text-center">
+              <div className="animate-hero-in" style={heroStep(0)}>
                 <Badge className="mb-6 border-teal-500/30 bg-teal-500/10 px-4 py-1.5 text-teal-300 hover:bg-teal-500/15">
                   Healthcare technology built in India
                 </Badge>
-              </motion.div>
+              </div>
 
-              <motion.h1
-    variants={fadeUp}
-    className="font-heading text-4xl leading-[1.12] font-bold tracking-tight text-balance text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              <h1
+    className="animate-hero-rise font-heading text-4xl leading-[1.12] font-bold tracking-tight text-balance text-white sm:text-5xl md:text-6xl lg:text-7xl"
+    style={heroStep(1)}
   >
                 Healthcare software for the way your team works.
-              </motion.h1>
+              </h1>
 
-              <motion.p
-    variants={fadeUp}
-    className="mx-auto mt-6 max-w-3xl text-sm text-pretty text-slate-400 sm:text-base"
+              <p
+    className="animate-hero-in mx-auto mt-6 max-w-3xl text-sm text-pretty text-slate-400 sm:text-base"
+    style={heroStep(2)}
   >
                 IQ-Line builds software for hospitals, diagnostic laboratories
                 and medical colleges. Our products help teams manage patient
                 records, laboratory testing, prescriptions, radiology and
                 academic administration, with less repeated data entry and
                 clearer access to information.
-              </motion.p>
+              </p>
 
-              <motion.div
-    variants={fadeUp}
-    className="mt-10 flex flex-wrap items-center justify-center gap-4"
+              <div
+    className="animate-hero-in mt-10 flex flex-wrap items-center justify-center gap-4"
+    style={heroStep(3)}
   >
                 <Button
     size="lg"
@@ -261,8 +265,8 @@ function HomePage() {
   >
                   <Link href={homeSectionTo("products")}>Explore products</Link>
                 </Button>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
             <motion.div
     initial="hidden"
@@ -303,7 +307,9 @@ function HomePage() {
         <WhyIqLine />
         <AboutFounders />
         <HomeBlogs />
-        <ContactSection prefillProduct={prefillProduct} />
+        <Suspense fallback={<ContactSection prefillProduct={demoProduct} />}>
+          <HomeContactSection demoProduct={demoProduct} />
+        </Suspense>
       </main>
     </>;
 }

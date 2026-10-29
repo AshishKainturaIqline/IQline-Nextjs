@@ -1,5 +1,3 @@
-import { Suspense } from "react"
-
 import { buildMetadata } from "@/lib/seo"
 import { ContactPage } from "@/views/ContactPage"
 
@@ -11,9 +9,5 @@ export const metadata = buildMetadata({
 })
 
 export default function Page() {
-  return (
-    <Suspense fallback={null}>
-      <ContactPage />
-    </Suspense>
-  )
+  return <ContactPage />
 }

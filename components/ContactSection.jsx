@@ -357,7 +357,7 @@ function ContactSection({
                       </button>
                     </div>
                   </div> : <div className="space-y-2">
-                    <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <Label htmlFor="contact-inquiry" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                       Interested in <span className="text-destructive">*</span>
                     </Label>
                     <Select
@@ -368,7 +368,7 @@ function ContactSection({
                       }}
                       required
                     >
-                      <SelectTrigger className="h-11 bg-background/50 text-sm transition-all focus:ring-2 focus:ring-primary/20">
+                      <SelectTrigger id="contact-inquiry" className="h-11 bg-background/50 text-sm transition-all focus:ring-2 focus:ring-primary/20">
                         <SelectValue placeholder="Select a product platform" />
                       </SelectTrigger>
                       <SelectContent>

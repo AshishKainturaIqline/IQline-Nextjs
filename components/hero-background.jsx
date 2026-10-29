@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion";
 function HeroBackground() {
   return <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
       {
@@ -37,39 +34,31 @@ function HeroBackground() {
         {
     /* Horizontal Pulse 1 */
   }
-        <motion.div
-    initial={{ x: "-100%" }}
-    animate={{ x: "100vw" }}
-    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-    className="absolute top-[30%] h-[2px] w-64 bg-gradient-to-r from-transparent via-teal-400/40 to-transparent"
+        <div
+    className="hero-beam-x absolute top-[30%] h-[2px] w-64 bg-gradient-to-r from-transparent via-teal-400/40 to-transparent"
+    style={{ animationDuration: "4s" }}
   />
         {
     /* Horizontal Pulse 2 */
   }
-        <motion.div
-    initial={{ x: "100vw" }}
-    animate={{ x: "-100%" }}
-    transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 1 }}
-    className="absolute top-[65%] h-[2px] w-80 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+        <div
+    className="hero-beam-x-reverse absolute top-[65%] h-[2px] w-80 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+    style={{ animationDuration: "6s", animationDelay: "1s" }}
   />
-        
+
         {
     /* Vertical Pulse 1 */
   }
-        <motion.div
-    initial={{ y: "-100%" }}
-    animate={{ y: "100vh" }}
-    transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 0.5 }}
-    className="absolute left-[30%] w-[1px] h-64 bg-gradient-to-b from-transparent via-teal-500/40 to-transparent"
+        <div
+    className="hero-beam-y absolute left-[30%] w-[1px] h-64 bg-gradient-to-b from-transparent via-teal-500/40 to-transparent"
+    style={{ animationDuration: "5s", animationDelay: "0.5s" }}
   />
         {
     /* Vertical Pulse 2 */
   }
-        <motion.div
-    initial={{ y: "100vh" }}
-    animate={{ y: "-100%" }}
-    transition={{ duration: 7, repeat: Infinity, ease: "linear", delay: 2 }}
-    className="absolute right-[20%] w-[1px] h-80 bg-gradient-to-b from-transparent via-violet-500/30 to-transparent"
+        <div
+    className="hero-beam-y-reverse absolute right-[20%] w-[1px] h-80 bg-gradient-to-b from-transparent via-violet-500/30 to-transparent"
+    style={{ animationDuration: "7s", animationDelay: "2s" }}
   />
       </div>
 
@@ -93,12 +82,7 @@ function HeroBackground() {
       {
     /* ── 5. SCANNING LINE (Subtle but sharp) ─────────────────────────── */
   }
-      <motion.div
-    initial={{ y: "-5%" }}
-    animate={{ y: "105%" }}
-    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-    className="absolute inset-x-0 h-px bg-white/10 blur-[1px]"
-  />
+      <div className="absolute inset-x-0 h-px bg-white/10 blur-[1px]" />
 
       {
     /* ── 6. DARK VIGNETTE (Ensures text readability) ─────────────────── */
@@ -107,12 +91,9 @@ function HeroBackground() {
     </div>;
 }
 function Node({ x, y, delay, color }) {
-  return <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: [0, 0.7, 0] }}
-    transition={{ duration: 3, repeat: Infinity, delay, ease: "easeInOut" }}
-    className="absolute size-3 -translate-x-1/2 -translate-y-1/2"
-    style={{ left: x, top: y }}
+  return <div
+    className="hero-node absolute size-3 -translate-x-1/2 -translate-y-1/2"
+    style={{ left: x, top: y, animationDelay: `${delay}s` }}
   >
       {
     /* Core Node */
@@ -124,12 +105,11 @@ function Node({ x, y, delay, color }) {
       {
     /* Expanding Ripple */
   }
-      <motion.div
-    animate={{ scale: [1, 4], opacity: [0.5, 0] }}
-    transition={{ duration: 2, repeat: Infinity, delay, ease: "easeOut" }}
-    className="absolute inset-0 rounded-full border border-white/40"
+      <div
+    className="hero-node-ripple absolute inset-0 rounded-full border border-white/40"
+    style={{ animationDelay: `${delay}s` }}
   />
-    </motion.div>;
+    </div>;
 }
 export {
   HeroBackground

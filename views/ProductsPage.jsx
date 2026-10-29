@@ -22,11 +22,7 @@ function ProductsPage() {
       <main className="flex-1 ">
         <PageHeroShell>
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-    initial={{ opacity: 0, y: 24 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-  >
+            <motion.div className="animate-hero-rise">
               <Badge className="mb-4 border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-teal-300 hover:bg-teal-500/15">
                 Product suite
               </Badge>

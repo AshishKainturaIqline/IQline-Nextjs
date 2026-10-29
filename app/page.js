@@ -1,5 +1,3 @@
-import { Suspense } from "react"
-
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import Top from "@/components/Top"
@@ -18,9 +16,7 @@ export default function Page() {
     <div className="flex min-h-svh flex-col">
       <SiteHeader />
       <Top />
-      <Suspense fallback={null}>
-        <HomePage />
-      </Suspense>
+      <HomePage />
       <SiteFooter />
     </div>
   )

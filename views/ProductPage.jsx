@@ -191,25 +191,18 @@ function ProductPage() {
                 </Badge>
               </motion.div>
 
-              <motion.h1
-    variants={fadeUp}
-    className="font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl dark:text-white"
-  >
+              <h1 className="animate-hero-rise font-heading text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl dark:text-white">
                 {product.title}
-              </motion.h1>
-              <motion.p
-    variants={fadeUp}
-    className="mt-1.5 text-lg font-medium sm:text-xl"
+              </h1>
+              <p
+    className="animate-hero-rise mt-1.5 text-lg font-medium sm:text-xl"
     style={{ color: product.accentColor }}
   >
                 {product.fullTitle}
-              </motion.p>
-              <motion.p
-    variants={fadeUp}
-    className="mt-5 max-w-2xl text-lg text-pretty text-muted-foreground dark:text-slate-400"
-  >
+              </p>
+              <p className="animate-hero-rise mt-5 max-w-2xl text-lg text-pretty text-muted-foreground dark:text-slate-400">
                 {product.tagline}
-              </motion.p>
+              </p>
 
               <motion.div
     variants={fadeUp}

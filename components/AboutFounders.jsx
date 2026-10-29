@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import ayushPhoto from "@/assets/team/ayush.jpg";
-import amitPhoto from "@/assets/team/amit.png";
-import meenalPhoto from "@/assets/team/meenal.png";
-import abhishekPhoto from "@/assets/team/abhishek.png";
+import ayushPhoto from "@/assets/team/ayush.webp";
+import amitPhoto from "@/assets/team/amit.webp";
+import meenalPhoto from "@/assets/team/meenal.webp";
+import abhishekPhoto from "@/assets/team/abhishek.webp";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -150,7 +150,7 @@ function AboutFounders() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-16 mb-8 text-center">
-          <p className="text-xs font-bold tracking-[0.22em] text-muted-foreground/70 uppercase">
+          <p className="text-xs font-bold tracking-[0.22em] text-muted-foreground uppercase">
             What sets us apart
           </p>
           <h3 className="mt-2 font-heading text-2xl font-bold tracking-tight sm:text-4xl">
@@ -188,7 +188,7 @@ function AboutFounders() {
 
         <motion.div variants={fadeUp} className="my-16 flex items-center gap-4">
           <Separator className="flex-1" />
-          <span className="text-xs font-bold tracking-[0.22em] text-muted-foreground/70 uppercase">
+          <span className="text-xs font-bold tracking-[0.22em] text-muted-foreground uppercase">
             Leadership
           </span>
           <Separator className="flex-1" />
@@ -261,6 +261,7 @@ function AboutFounders() {
       }}
       transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 26 }}
       aria-hidden={!isActive}
+      inert={!isActive}
       className={cn(
         "absolute w-full max-w-xl px-4",
         !isActive && "pointer-events-none"

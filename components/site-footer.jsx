@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { assetSrc } from "@/lib/utils";
 import logoDark from "@/assets/logo/Logo-Darktheme.svg";
 import logoLight from "@/assets/logo/Logo-Lighttheme.svg";
-import makeInIndia from "@/assets/make_in_india.png";
+import makeInIndia from "@/assets/make_in_india.webp";
 
 const footerLinks = {
   products: [

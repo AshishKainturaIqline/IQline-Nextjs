@@ -13,7 +13,7 @@ import {
 import { ArrowRightIcon, ChevronDownIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getAbdmCertUrl, products } from "@/lib/products-data";
-import { cn, productCardImageUrl } from "@/lib/utils";
+import { cn, productCardBackgroundUrl } from "@/lib/utils";
 const cardHover = {
   initial: { y: 0 },
   hover: {
@@ -107,7 +107,7 @@ function ProductCard({ product }) {
     variants={cardImage}
     className="absolute inset-0 bg-cover bg-center mix-blend-multiply dark:mix-blend-plus-lighter"
             style={{
-              backgroundImage: `url('${productCardImageUrl(product.id)}')`,
+              backgroundImage: `url('${productCardBackgroundUrl(product.id)}')`,
             }}
   />
           <motion.div

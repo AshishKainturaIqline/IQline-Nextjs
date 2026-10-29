@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 ;
 import { motion } from "framer-motion";
 import { ContactSection } from "@/components/ContactSection";
@@ -9,9 +9,11 @@ import { PageHeroShell } from "@/components/page-hero-shell";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
-function ContactPage() {
+function ContactSectionFromQuery() {
   const searchParams = useSearchParams();
-  const prefillProduct = searchParams.get("product") || "";
+  return <ContactSection prefillProduct={searchParams.get("product") || ""} />;
+}
+function ContactPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -22,11 +24,7 @@ function ContactPage() {
       <main className="flex-1 overflow-x-hidden">
         <PageHeroShell>
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-    initial={{ opacity: 0, y: 24 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-  >
+            <motion.div className="animate-hero-rise">
               <Badge className="mb-4 border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-teal-300 hover:bg-teal-500/15">
                 Get in touch
               </Badge>
@@ -42,7 +40,9 @@ function ContactPage() {
           </div>
         </PageHeroShell>
 
-        <ContactSection prefillProduct={prefillProduct} />
+        <Suspense fallback={<ContactSection prefillProduct="" />}>
+          <ContactSectionFromQuery />
+        </Suspense>
       </main>
 
       <SiteFooter />
