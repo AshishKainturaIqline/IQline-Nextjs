@@ -39,7 +39,7 @@ const hasLiveOpenings = careerOpenings.length > 0;
 const careerPortalUrl =
   "https://career.hrone.cloud/career-portal?appId=s9v8ieloV_N6BR2Oa1aS1l1XZ9zHrGj1e5W1Fz02H6oi9EA8x0FApFrA5HxzbIqcLPJg33y4SZ7W_dWrehekqa_G2sphbJ_tX3Hrs0pvmvUD130hq1SIBXXP62miG7AC&dc=poctgroup&rqt=m8jH4bpBQbccEU8MZpSP5Q&cc=eaqzS8e-weZZc3W_dw_T1Q";
 function jobFacts(job) {
-  return [job.location, job.workMode, job.experience, job.employmentType].filter(Boolean);
+  return [job.location, job.workMode, job.experience, job.employmentType, job.travel].filter(Boolean);
 }
 function DetailSection({ title, items }) {
   if (!items?.length) return null;
@@ -71,7 +71,7 @@ function OpeningCard({ job }) {
     }, 180);
   }
   return <>
-    {/* <Card className="flex h-full flex-col overflow-hidden border-border/80 shadow-sm transition-shadow duration-300 hover:shadow-lg">
+    <Card className="flex h-full flex-col overflow-hidden border-border/80 shadow-sm transition-shadow duration-300 hover:shadow-lg">
       <div className="h-1 bg-gradient-to-r from-primary/80 via-primary to-primary/40" />
       <CardHeader className="space-y-3">
         <Badge variant="secondary" className="w-fit">
@@ -106,47 +106,56 @@ function OpeningCard({ job }) {
           <ArrowRightIcon className="size-4" />
         </Button>
       </CardFooter>
-    </Card> */}
+    </Card>
 
-    {/* <Dialog open={open} onOpenChange={setOpen}>
-    <DialogContent className="flex max-h-[min(92vh,52rem)] flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
-      <DialogHeader className="space-y-3 border-b border-border/70 px-6 pt-6 pr-14 pb-5">
-        <Badge variant="secondary" className="w-fit">
-          {job.team}
-        </Badge>
-        <DialogTitle className="text-2xl font-bold tracking-tight">
-          {job.title}
-        </DialogTitle>
-        <DialogDescription className="text-sm">
-          {jobFacts(job).join(" · ")}
-        </DialogDescription>
-      </DialogHeader>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="flex max-h-[min(92vh,52rem)] flex-col gap-0 overflow-hidden p-0 sm:max-w-3xl">
+        <DialogHeader className="space-y-3 border-b border-border/70 px-6 pt-6 pr-14 pb-5">
+          <Badge variant="secondary" className="w-fit">
+            {job.team}
+          </Badge>
+          <DialogTitle className="text-2xl font-bold tracking-tight">
+            {job.title}
+          </DialogTitle>
+          <DialogDescription className="text-sm">
+            {jobFacts(job).join(" · ")}
+          </DialogDescription>
+        </DialogHeader>
 
-      <div className="min-h-0 flex-1 space-y-7 overflow-y-auto px-6 py-6">
-        {job.summary?.map((paragraph) => <p
-          key={paragraph}
-          className="text-sm leading-relaxed text-muted-foreground"
-        >
-          {paragraph}
-        </p>)}
-        <DetailSection title="Key responsibilities" items={job.responsibilities} />
-        <DetailSection title="Required skills" items={job.skills} />
-        <DetailSection title="Preferred qualifications" items={job.preferred} />
-        <DetailSection title="Preferred competencies" items={job.competencies} />
-        <DetailSection title="Portfolio or assessment" items={job.portfolio} />
-      </div>
+        <div className="min-h-0 flex-1 space-y-7 overflow-y-auto px-6 py-6">
+          {job.summary?.map((paragraph) => <p
+            key={paragraph}
+            className="text-sm leading-relaxed text-muted-foreground"
+          >
+            {paragraph}
+          </p>)}
+          <DetailSection title="Key responsibilities" items={job.responsibilities} />
+          <DetailSection title="Required skills" items={job.skills} />
+          <DetailSection title="Preferred qualifications" items={job.preferred} />
+          <DetailSection title="Preferred competencies" items={job.competencies} />
+          <DetailSection title="Ideal candidate" items={job.ideal} />
+          <DetailSection title="What we offer" items={job.offer} />
+          <DetailSection title="Portfolio or assessment" items={job.portfolio} />
+        </div>
 
-      <DialogFooter className="flex-col gap-3 border-t border-border/70 bg-muted/30 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-muted-foreground">
-          Apply with your resume using the form on this page.
-        </p>
-        <Button size="lg" className="w-full sm:w-auto" onClick={applyForRole}>
+        <DialogFooter className="flex-col gap-3 border-t border-border/70 bg-muted/30 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
+            {/* Apply with your resume using the form on this page. */}
+          
+          </p>
+          {/* <Button size="lg" className="w-full sm:w-auto" onClick={applyForRole}>
           Apply for this role
           <ArrowRightIcon className="size-4" />
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-    </Dialog> */}
+        </Button> */}
+          <Button size="lg" className="w-full sm:w-auto" asChild>
+            <a href={job.applyUrl} target="_blank" rel="noopener noreferrer">
+              <span>Apply for this role</span>
+              <ArrowRightIcon className="size-4" />
+            </a>
+            </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </>;
 }
 function CareerPage() {
@@ -215,7 +224,7 @@ function CareerPage() {
       {
         /* <CareerPageSlide /> */
       }
-      {/* <section
+      <section
         id="openings"
         className="scroll-mt-20 border-b border-border bg-muted/20 py-20 sm:py-28"
       >
@@ -255,7 +264,7 @@ function CareerPage() {
             page for future opportunities.
           </p>}
         </div>
-      </section> */}
+      </section>
 
       <CareerMoments />
       <CareerContact />
