@@ -10,6 +10,13 @@ const nextConfig = {
       },
     },
   },
+  async headers() {
+    const hidden = [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+    return [
+      { source: "/hq", headers: hidden },
+      { source: "/hq/:path*", headers: hidden },
+    ]
+  },
   async redirects() {
     return [
       {
