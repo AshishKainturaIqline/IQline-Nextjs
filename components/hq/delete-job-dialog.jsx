@@ -18,8 +18,8 @@ export function DeleteJobDialog({ job, open, onOpenChange, onConfirm }) {
           <DialogTitle>Delete this job?</DialogTitle>
           <DialogDescription>
             {job
-              ? `“${job.title}” will be removed from the studio list in this browser.`
-              : "This job will be removed from the studio list in this browser."}
+              ? `“${job.title}” will be removed from the database and the careers page.`
+              : "This job will be removed from the database and the careers page."}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

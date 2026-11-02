@@ -39,7 +39,7 @@ function StatusRing({ percent }) {
 
 export default function Page() {
   const { user } = useHqAuth()
-  const { jobs, ready } = useHqJobs()
+  const { jobs, ready, error } = useHqJobs()
 
   if (!ready) return <HqLoading label="Loading jobs…" />
 
@@ -62,6 +62,7 @@ export default function Page() {
           {greeting()}, {user?.name}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">Here is what is happening with your open roles.</p>
+        {error ? <p className="mt-2 text-sm text-destructive">{error}</p> : null}
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

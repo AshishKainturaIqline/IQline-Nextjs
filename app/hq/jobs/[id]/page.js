@@ -112,8 +112,8 @@ export default function Page() {
         job={job}
         open={confirming}
         onOpenChange={setConfirming}
-        onConfirm={() => {
-          deleteJob(job.id)
+        onConfirm={async () => {
+          await deleteJob(job.id)
           router.replace("/hq/jobs")
         }}
       />

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  serverExternalPackages: ["nodemailer"],
+  serverExternalPackages: ["nodemailer", "mysql2"],
   turbopack: {
     root: import.meta.dirname,
     rules: {

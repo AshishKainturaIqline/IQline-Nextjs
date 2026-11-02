@@ -54,8 +54,8 @@ export default function Page() {
         initial={jobToForm(job)}
         teams={teams}
         onDelete={() => setConfirming(true)}
-        onSubmit={(values) => {
-          updateJob(job.id, formToJobFields(values))
+        onSubmit={async (values) => {
+          await updateJob(job.id, formToJobFields(values))
           router.push(`/hq/jobs/${job.id}`)
         }}
       />
@@ -64,8 +64,8 @@ export default function Page() {
         job={job}
         open={confirming}
         onOpenChange={setConfirming}
-        onConfirm={() => {
-          deleteJob(job.id)
+        onConfirm={async () => {
+          await deleteJob(job.id)
           router.replace("/hq/jobs")
         }}
       />

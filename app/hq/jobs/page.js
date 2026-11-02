@@ -23,7 +23,7 @@ export default function Page() {
   const paramQuery = searchParams.get("q") ?? ""
   const paramStatus = statusFromParam(searchParams.get("status"))
   const urlKey = `${paramQuery}|${searchParams.get("status") ?? ""}`
-  const { jobs, ready, deleteJob, restoreSamples } = useHqJobs()
+  const { jobs, ready, error, deleteJob, restoreSamples } = useHqJobs()
   const [query, setQuery] = useState(paramQuery)
   const [status, setStatus] = useState(paramStatus)
   const [seenUrl, setSeenUrl] = useState(urlKey)
@@ -57,8 +57,9 @@ export default function Page() {
       <div>
         <h1 className="font-heading text-3xl font-semibold tracking-tight">Jobs</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {jobs.length} {jobs.length === 1 ? "job" : "jobs"} stored in this browser.
+          {jobs.length} {jobs.length === 1 ? "job" : "jobs"} in the database. Active roles appear on the careers page.
         </p>
+        {error ? <p className="mt-2 text-sm text-destructive">{error}</p> : null}
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -166,8 +167,8 @@ export default function Page() {
         onOpenChange={(open) => {
           if (!open) setPending(null)
         }}
-        onConfirm={() => {
-          if (pending) deleteJob(pending.id)
+        onConfirm={async () => {
+          if (pending) await deleteJob(pending.id)
           setPending(null)
         }}
       />

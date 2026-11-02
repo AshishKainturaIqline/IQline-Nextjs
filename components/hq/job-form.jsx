@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -50,17 +50,29 @@ function Panel({ title, children }) {
 export function JobForm({ initial, teams = [], formId = "hq-job-form", onSubmit, onDelete }) {
   const [values, setValues] = useState(initial)
   const [errors, setErrors] = useState({})
+  const [saving, setSaving] = useState(false)
+  const savingRef = useRef(false)
 
   function update(name, value) {
     setValues((current) => ({ ...current, [name]: value }))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
+    if (savingRef.current) return
     const nextErrors = validateJobForm(values)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
-    onSubmit(values)
+    savingRef.current = true
+    setSaving(true)
+    try {
+      await onSubmit(values)
+    } catch (error) {
+      setErrors({ form: error instanceof Error ? error.message : "The job could not be saved." })
+    } finally {
+      savingRef.current = false
+      setSaving(false)
+    }
   }
 
   const employmentOptions = EMPLOYMENT_TYPES.includes(values.employmentType)
@@ -71,6 +83,8 @@ export function JobForm({ initial, teams = [], formId = "hq-job-form", onSubmit,
   return (
     <form id={formId} onSubmit={handleSubmit} className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_300px]" noValidate>
       <div className="grid gap-4">
+        {errors.form ? <p className="text-sm text-destructive">{errors.form}</p> : null}
+        {saving ? <p className="text-sm text-muted-foreground">Saving…</p> : null}
         <Panel title="Basics">
           <Field id="title" label="Job title" error={errors.title}>
             <Input
@@ -281,7 +295,7 @@ export function JobForm({ initial, teams = [], formId = "hq-job-form", onSubmit,
         {onDelete ? (
           <section className="rounded-xl bg-card p-5 shadow-xs ring-1 ring-foreground/10">
             <h2 className="font-medium">Danger zone</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Deleting a job removes it from this browser.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Deleting a job removes it from the database and the careers page.</p>
             <Button
               type="button"
               variant="outline"

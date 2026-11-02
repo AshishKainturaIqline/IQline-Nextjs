@@ -19,11 +19,12 @@ export function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
-    const result = login(id, password)
+    setError("")
+    const result = await login(id, password)
     if (!result.ok) {
-      setError("That ID or password is not recognized.")
+      setError(result.message || "That ID or password is not recognized.")
       return
     }
     router.replace("/hq")

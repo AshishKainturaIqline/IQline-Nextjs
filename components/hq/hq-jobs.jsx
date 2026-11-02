@@ -1,12 +1,13 @@
 "use client"
 
-import { createContext, useContext, useMemo, useSyncExternalStore } from "react"
+import { createContext, useContext, useEffect, useMemo, useSyncExternalStore } from "react"
 
-import { HQ_JOBS_STORAGE_KEY, SEED_JOBS } from "@/lib/hq/mock-jobs"
+import { useHqAuth } from "@/components/hq/hq-auth"
 
 const listeners = new Set()
-let cachedRaw
-let cachedJobs = SEED_JOBS
+const serverSnapshot = { ready: false, jobs: [], error: "" }
+let snapshot = serverSnapshot
+let loadToken = 0
 
 function emit() {
   listeners.forEach((listener) => listener())
@@ -17,96 +18,89 @@ function subscribe(listener) {
   return () => listeners.delete(listener)
 }
 
-function isStringList(value) {
-  return Array.isArray(value) && value.every((item) => typeof item === "string")
+function getSnapshot() {
+  return snapshot
 }
 
-function isJob(value) {
-  return Boolean(
-    value &&
-      typeof value.id === "string" &&
-      typeof value.title === "string" &&
-      typeof value.team === "string" &&
-      typeof value.location === "string" &&
-      typeof value.employmentType === "string" &&
-      typeof value.experience === "string" &&
-      typeof value.applyUrl === "string" &&
-      typeof value.status === "string" &&
-      typeof value.createdAt === "string" &&
-      isStringList(value.summary) &&
-      isStringList(value.responsibilities) &&
-      isStringList(value.skills) &&
-      isStringList(value.preferred) &&
-      isStringList(value.competencies)
-  )
+async function request(url, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...options.headers,
+    },
+    cache: "no-store",
+  })
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok) throw new Error(data.message || "Request failed.")
+  return data
 }
 
-function readJobs() {
+async function loadJobs() {
+  const token = ++loadToken
   try {
-    const raw = window.localStorage.getItem(HQ_JOBS_STORAGE_KEY)
-    if (raw === cachedRaw) return cachedJobs
-    cachedRaw = raw
-    if (!raw) {
-      cachedJobs = SEED_JOBS
-      return cachedJobs
+    const data = await request("/api/hq/jobs")
+    if (token !== loadToken) return
+    snapshot = { ready: true, jobs: Array.isArray(data.jobs) ? data.jobs : [], error: "" }
+  } catch (error) {
+    if (token !== loadToken) return
+    snapshot = {
+      ready: true,
+      jobs: [],
+      error: error instanceof Error ? error.message : "Jobs could not be loaded.",
     }
-    const parsed = JSON.parse(raw)
-    cachedJobs = Array.isArray(parsed) ? parsed.filter(isJob) : SEED_JOBS
-    return cachedJobs
-  } catch {
-    cachedRaw = null
-    cachedJobs = SEED_JOBS
-    return cachedJobs
   }
-}
-
-function persist(jobs) {
-  const raw = JSON.stringify(jobs)
-  cachedJobs = jobs
-  cachedRaw = raw
-  window.localStorage.setItem(HQ_JOBS_STORAGE_KEY, raw)
   emit()
-}
-
-function sortJobs(jobs) {
-  return [...jobs].sort(
-    (a, b) => b.createdAt.localeCompare(a.createdAt) || a.title.localeCompare(b.title)
-  )
 }
 
 const HqJobsContext = createContext(null)
 
-const EMPTY_JOBS = []
-
 export function HqJobsProvider({ children }) {
-  const stored = useSyncExternalStore(subscribe, readJobs, () => null)
-  const ready = stored !== null
-  const jobs = stored ?? EMPTY_JOBS
+  const { user, ready: authReady } = useHqAuth()
+  const state = useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot)
+  const userId = user?.id ?? ""
 
-  const value = useMemo(() => {
-    const ordered = sortJobs(jobs)
-    return {
-      jobs: ordered,
-      ready,
-      getJob(id) {
-        return ordered.find((job) => job.id === id) ?? null
-      },
-      createJob(fields) {
-        const job = { ...fields, id: crypto.randomUUID() }
-        persist([job, ...jobs])
-        return job
-      },
-      updateJob(id, fields) {
-        persist(jobs.map((job) => (job.id === id ? { ...job, ...fields, id } : job)))
-      },
-      deleteJob(id) {
-        persist(jobs.filter((job) => job.id !== id))
-      },
-      restoreSamples() {
-        persist([...SEED_JOBS])
-      },
+  useEffect(() => {
+    if (!authReady) return
+    if (!userId) {
+      loadToken += 1
+      snapshot = { ready: true, jobs: [], error: "" }
+      emit()
+      return
     }
-  }, [jobs, ready])
+    snapshot = { ready: false, jobs: [], error: "" }
+    emit()
+    loadJobs()
+  }, [authReady, userId])
+
+  const value = useMemo(
+    () => ({
+      jobs: state.jobs,
+      ready: state.ready,
+      error: state.error,
+      getJob(id) {
+        return state.jobs.find((job) => job.id === id) ?? null
+      },
+      async createJob(fields) {
+        const data = await request("/api/hq/jobs", { method: "POST", body: JSON.stringify(fields) })
+        await loadJobs()
+        return data.job
+      },
+      async updateJob(id, fields) {
+        await request(`/api/hq/jobs/${id}`, { method: "PATCH", body: JSON.stringify(fields) })
+        await loadJobs()
+      },
+      async deleteJob(id) {
+        await request(`/api/hq/jobs/${id}`, { method: "DELETE" })
+        await loadJobs()
+      },
+      async restoreSamples() {
+        await request("/api/hq/jobs/restore", { method: "POST" })
+        await loadJobs()
+      },
+    }),
+    [state]
+  )
 
   return <HqJobsContext.Provider value={value}>{children}</HqJobsContext.Provider>
 }

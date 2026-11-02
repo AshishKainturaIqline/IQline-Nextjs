@@ -1,0 +1,168 @@
+npm warn Unknown env config "devdir". This will error in a future major version of npm. See `npm help npmrc` for supported config options.
+npm notice run next-site@0.1.0 predev
+npm notice run npm run sync:seo
+npm warn Unknown env config "devdir". This will error in a future major version of npm. See `npm help npmrc` for supported config options.
+npm notice run next-site@0.1.0 sync:seo
+npm notice run node scripts/sync-public-seo.mjs
+Updated public/robots.txt and public/llms.txt
+npm notice run next-site@0.1.0 dev
+npm notice run next dev
+▲ Next.js 16.4.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.8.0.5:3000
+- Environments: .env.local, .env
+✓ Ready in 384ms
+✓ Running next.config.mjs took 17ms
+
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 221ms (next.js: 137ms, application-code: 84ms)
+ GET /hq 200 in 500ms (next.js: 137ms, application-code: 364ms)
+ GET /careers 200 in 249ms (next.js: 5ms, application-code: 244ms)
+ GET /careers 200 in 121ms (next.js: 1.0ms, application-code: 120ms)
+ GET /api/hq/session 200 in 72ms (next.js: 53ms, application-code: 19ms)
+ GET /api/hq/session 200 in 18ms (next.js: 1.5ms, application-code: 17ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 20ms (next.js: 7ms, application-code: 13ms)
+ GET /api/jobs 200 in 1203ms (next.js: 17ms, application-code: 1187ms)
+ GET /api/jobs 200 in 479ms (next.js: 0.8ms, application-code: 478ms)
+ GET /api/jobs 200 in 514ms (next.js: 1.3ms, application-code: 513ms)
+ GET /api/hq/jobs 200 in 957ms (next.js: 16ms, application-code: 941ms)
+ GET /api/jobs 200 in 1368ms (next.js: 1.1ms, application-code: 1367ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 20ms (next.js: 9ms, application-code: 11ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 7ms (next.js: 3ms, application-code: 4ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 40ms (next.js: 35ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 10ms (next.js: 5ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 10ms (next.js: 3ms, application-code: 6ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 8ms (next.js: 3ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 11ms (next.js: 6ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 7ms (next.js: 3ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 9ms (next.js: 4ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 8ms (next.js: 3ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 8ms (next.js: 3ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 8ms (next.js: 3ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 14ms (next.js: 5ms, application-code: 9ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 9ms (next.js: 5ms, application-code: 4ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 13ms (next.js: 7ms, application-code: 6ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 12ms (next.js: 5ms, application-code: 7ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 9ms (next.js: 4ms, application-code: 5ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 9ms (next.js: 4ms, application-code: 4ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 9ms (next.js: 3ms, application-code: 6ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 20ms (next.js: 9ms, application-code: 11ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 7ms (next.js: 3ms, application-code: 4ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 8ms (next.js: 3ms, application-code: 4ms)
+⨯ A conflicting public file and page file was found for path /robots.txt https://nextjs.org/docs/messages/conflicting-public-file-page
+ GET /robots.txt 500 in 8ms (next.js: 4ms, application-code: 4ms)
+ GET /api/jobs 200 in 350ms (next.js: 1.0ms, application-code: 349ms)
+ POST /api/hq/session 200 in 6ms (next.js: 0.8ms, application-code: 5ms)
+ POST /api/hq/jobs 201 in 163ms (next.js: 0.9ms, application-code: 162ms)
+ GET /api/jobs 200 in 81ms (next.js: 0.6ms, application-code: 81ms)
+ PATCH /api/hq/jobs/8e0bbe60-b0dd-4b62-ba63-b143a053359c 200 in 846ms (next.js: 625ms, application-code: 222ms)
+ GET /api/jobs 200 in 76ms (next.js: 0.6ms, application-code: 75ms)
+ DELETE /api/hq/jobs/8e0bbe60-b0dd-4b62-ba63-b143a053359c 200 in 136ms (next.js: 36ms, application-code: 100ms)
+ GET /api/jobs 200 in 73ms (next.js: 1.0ms, application-code: 72ms)
+ DELETE /api/hq/session 200 in 14ms (next.js: 0.6ms, application-code: 13ms)
+ GET /careers 200 in 48ms (next.js: 0.7ms, application-code: 47ms)
+ GET / 200 in 188ms (next.js: 5ms, application-code: 182ms)
+ GET /blog 200 in 25ms (next.js: 8ms, application-code: 17ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /careers 200 in 15ms (next.js: 1.1ms, application-code: 14ms)
+ GET /api/jobs 200 in 732ms (next.js: 0.7ms, application-code: 731ms)
+ GET /api/jobs 200 in 1832ms (next.js: 0.7ms, application-code: 1831ms)
+ GET /careers 200 in 184ms (next.js: 4ms, application-code: 180ms)
+ GET /api/jobs 200 in 560ms (next.js: 2ms, application-code: 557ms)
+ GET /api/jobs 200 in 598ms (next.js: 1.6ms, application-code: 596ms)
+ GET /hq 200 in 50ms (next.js: 1.5ms, application-code: 49ms)
+ GET /api/hq/session 200 in 20ms (next.js: 2ms, application-code: 18ms)
+ GET /api/hq/session 200 in 14ms (next.js: 1.7ms, application-code: 12ms)
+ GET /api/hq/jobs 200 in 157ms (next.js: 1.7ms, application-code: 155ms)
+ GET /hq/jobs 200 in 57ms (next.js: 18ms, application-code: 39ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /hq/jobs/job-business-analyst/edit 200 in 434ms (next.js: 379ms, application-code: 55ms)
+ PATCH /api/hq/jobs/job-business-analyst 200 in 415ms (next.js: 53ms, application-code: 362ms)
+ GET /api/hq/jobs 200 in 107ms (next.js: 2ms, application-code: 105ms)
+ GET /hq/jobs/job-business-analyst 200 in 409ms (next.js: 366ms, application-code: 43ms)
+ GET / 200 in 307ms (next.js: 3ms, application-code: 305ms)
+ GET /careers 200 in 57ms (next.js: 4ms, application-code: 54ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET /api/jobs 200 in 104ms (next.js: 2.0ms, application-code: 102ms)
+ GET /api/jobs 200 in 297ms (next.js: 1.7ms, application-code: 295ms)
+ GET /hq/jobs 200 in 42ms (next.js: 3ms, application-code: 39ms)
+ GET /hq/jobs/job-business-analyst/edit 200 in 104ms (next.js: 42ms, application-code: 61ms)
+ PATCH /api/hq/jobs/job-business-analyst 200 in 614ms (next.js: 51ms, application-code: 562ms)
+ GET /api/hq/jobs 200 in 149ms (next.js: 1.2ms, application-code: 148ms)
+ GET /hq/jobs/job-business-analyst 200 in 87ms (next.js: 44ms, application-code: 44ms)
+ GET /hq/jobs 200 in 27ms (next.js: 3ms, application-code: 25ms)
+ GET /careers 200 in 123ms (next.js: 2ms, application-code: 121ms)
+ GET /api/jobs 200 in 125ms (next.js: 1.8ms, application-code: 124ms)
+ GET /api/jobs 200 in 645ms (next.js: 1.4ms, application-code: 644ms)
+ GET /hq 200 in 40ms (next.js: 3ms, application-code: 37ms)
+ GET /hq/jobs 200 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET /hq/jobs/job-senior-ba/edit 200 in 107ms (next.js: 54ms, application-code: 52ms)
+ GET /hq 200 in 27ms (next.js: 1.7ms, application-code: 25ms)
+ DELETE /api/hq/session 200 in 13ms (next.js: 3ms, application-code: 10ms)
+ GET /hq/login 200 in 61ms (next.js: 25ms, application-code: 35ms)
+ GET /hq/login 200 in 37ms (next.js: 3ms, application-code: 35ms)
+ POST /api/hq/session 200 in 21ms (next.js: 3ms, application-code: 18ms)
+ GET /hq 200 in 73ms (next.js: 34ms, application-code: 39ms)
+ GET /hq 200 in 79ms (next.js: 5ms, application-code: 74ms)
+ GET /api/hq/jobs 200 in 1329ms (next.js: 1.3ms, application-code: 1328ms)
+ GET /hq/jobs 200 in 39ms (next.js: 3ms, application-code: 37ms)
+ GET /hq/jobs/job-senior-engineer 200 in 90ms (next.js: 51ms, application-code: 39ms)
+ GET /hq/jobs/job-senior-engineer/edit 200 in 93ms (next.js: 50ms, application-code: 43ms)
+ PATCH /api/hq/jobs/job-senior-engineer 200 in 985ms (next.js: 42ms, application-code: 943ms)
+ GET /api/hq/jobs 200 in 233ms (next.js: 4ms, application-code: 228ms)
+ GET /hq/jobs/job-senior-engineer 200 in 86ms (next.js: 47ms, application-code: 39ms)
+ GET /careers 200 in 128ms (next.js: 2ms, application-code: 126ms)
+ GET /api/jobs 200 in 120ms (next.js: 1.6ms, application-code: 118ms)
+ GET /api/jobs 200 in 484ms (next.js: 1.7ms, application-code: 482ms)
+ GET /hq/jobs/job-senior-engineer/edit 200 in 85ms (next.js: 45ms, application-code: 39ms)
+ PATCH /api/hq/jobs/job-senior-engineer 200 in 367ms (next.js: 48ms, application-code: 319ms)
+ GET /api/hq/jobs 200 in 279ms (next.js: 2ms, application-code: 277ms)
+ GET /hq/jobs/job-senior-engineer 200 in 86ms (next.js: 49ms, application-code: 37ms)
+ GET /hq/jobs/job-senior-engineer/edit 200 in 90ms (next.js: 54ms, application-code: 36ms)
+ GET /careers 200 in 115ms (next.js: 3ms, application-code: 111ms)
+ GET /api/jobs 200 in 92ms (next.js: 1.4ms, application-code: 91ms)
+ GET /api/jobs 200 in 583ms (next.js: 1.1ms, application-code: 582ms)
+ GET /hq 200 in 49ms (next.js: 8ms, application-code: 41ms)
+ GET /hq 200 in 91ms (next.js: 3ms, application-code: 88ms)
+ GET /api/hq/session 200 in 19ms (next.js: 1.6ms, application-code: 18ms)
+ GET /api/hq/session 200 in 13ms (next.js: 2ms, application-code: 11ms)
+ GET /api/hq/jobs 200 in 357ms (next.js: 2ms, application-code: 355ms)
+ DELETE /api/hq/session 200 in 11ms (next.js: 2.0ms, application-code: 9ms)
+ GET /hq/login 200 in 48ms (next.js: 1.7ms, application-code: 47ms)
+ GET /hq/login 200 in 46ms (next.js: 3ms, application-code: 43ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ POST /api/hq/session 200 in 14ms (next.js: 1.9ms, application-code: 12ms)
+ GET /hq 200 in 41ms (next.js: 3ms, application-code: 38ms)
+ GET /hq 200 in 63ms (next.js: 4ms, application-code: 59ms)
+ GET /api/hq/jobs 200 in 552ms (next.js: 2ms, application-code: 549ms)
+ POST /api/hq/session 200 in 625ms (next.js: 16ms, application-code: 609ms)
+ POST /api/hq/session 401 in 312ms (next.js: 0.5ms, application-code: 311ms)
+ POST /api/hq/session 401 in 289ms (next.js: 0.6ms, application-code: 288ms)
+ POST /api/hq/session 401 in 298ms (next.js: 0.7ms, application-code: 298ms)
+ POST /api/hq/session 401 in 296ms (next.js: 0.6ms, application-code: 295ms)
+ POST /api/hq/session 429 in 299ms (next.js: 0.6ms, application-code: 299ms)
+ POST /api/hq/session 429 in 3ms (next.js: 0.7ms, application-code: 3ms)
+ POST /api/hq/session 429 in 3ms (next.js: 0.9ms, application-code: 3ms)

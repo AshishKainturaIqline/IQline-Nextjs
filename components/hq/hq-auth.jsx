@@ -1,15 +1,10 @@
 "use client"
 
-import { createContext, useContext, useMemo, useSyncExternalStore } from "react"
-
-import { authenticateHqUser } from "@/lib/hq/users"
-
-const SESSION_KEY = "iqline-hq-session-v1"
-const UNREADY = { unready: true }
+import { createContext, useContext, useEffect, useMemo, useSyncExternalStore } from "react"
 
 const listeners = new Set()
-let cachedRaw
-let cachedUser = null
+const serverSnapshot = { ready: false, user: null }
+let snapshot = serverSnapshot
 
 function emit() {
   listeners.forEach((listener) => listener())
@@ -20,61 +15,58 @@ function subscribe(listener) {
   return () => listeners.delete(listener)
 }
 
-function readSession() {
-  try {
-    const raw = window.localStorage.getItem(SESSION_KEY)
-    if (raw === cachedRaw) return cachedUser
-    cachedRaw = raw
-    if (!raw) {
-      cachedUser = null
-      return cachedUser
-    }
-    const parsed = JSON.parse(raw)
-    cachedUser =
-      parsed?.id && parsed?.name && parsed?.role
-        ? { id: parsed.id, name: parsed.name, role: parsed.role }
-        : null
-    return cachedUser
-  } catch {
-    cachedRaw = null
-    cachedUser = null
-    return cachedUser
-  }
+function getSnapshot() {
+  return snapshot
 }
 
+async function loadSession() {
+  try {
+    const response = await fetch("/api/hq/session", { cache: "no-store" })
+    const data = await response.json()
+    snapshot = { ready: true, user: data.user ?? null }
+  } catch {
+    snapshot = { ready: true, user: null }
+  }
+  emit()
+}
+
+const HqAuthContext = createContext(null)
+
 export function HqAuthProvider({ children }) {
-  const session = useSyncExternalStore(subscribe, readSession, () => UNREADY)
-  const ready = session !== UNREADY
-  const user = ready ? session : null
+  const state = useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot)
+
+  useEffect(() => {
+    loadSession()
+  }, [])
 
   const value = useMemo(
     () => ({
-      user,
-      ready,
-      login(id, password) {
-        const next = authenticateHqUser(id, password)
-        if (!next) return { ok: false }
-        const raw = JSON.stringify(next)
-        window.localStorage.setItem(SESSION_KEY, raw)
-        cachedRaw = raw
-        cachedUser = next
+      user: state.user,
+      ready: state.ready,
+      async login(id, password) {
+        const response = await fetch("/api/hq/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+          body: JSON.stringify({ id, password }),
+        })
+        const data = await response.json().catch(() => ({}))
+        if (!response.ok || !data.user) return { ok: false, message: data.message }
+        snapshot = { ready: true, user: data.user }
         emit()
         return { ok: true }
       },
-      logout() {
-        window.localStorage.removeItem(SESSION_KEY)
-        cachedRaw = null
-        cachedUser = null
+      async logout() {
+        await fetch("/api/hq/session", { method: "DELETE", cache: "no-store" })
+        snapshot = { ready: true, user: null }
         emit()
       },
     }),
-    [ready, user]
+    [state]
   )
 
   return <HqAuthContext.Provider value={value}>{children}</HqAuthContext.Provider>
 }
-
-const HqAuthContext = createContext(null)
 
 export function useHqAuth() {
   const context = useContext(HqAuthContext)

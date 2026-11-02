@@ -44,8 +44,8 @@ export default function Page() {
       <JobForm
         initial={emptyJobForm()}
         teams={teams}
-        onSubmit={(values) => {
-          const job = createJob(formToJobFields(values))
+        onSubmit={async (values) => {
+          const job = await createJob(formToJobFields(values))
           router.push(`/hq/jobs/${job.id}`)
         }}
       />

@@ -22,7 +22,7 @@ import { CareerMoments } from "@/components/CareerMoments";
 import { PageHeroShell } from "@/components/page-hero-shell";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { careerOpenings } from "@/lib/career-openings";
+import { fetchPublicJobs } from "@/lib/public-jobs";
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: {
@@ -35,7 +35,6 @@ const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.09 } }
 };
-const hasLiveOpenings = careerOpenings.length > 0;
 const careerPortalUrl =
   "https://career.hrone.cloud/career-portal?appId=s9v8ieloV_N6BR2Oa1aS1l1XZ9zHrGj1e5W1Fz02H6oi9EA8x0FApFrA5HxzbIqcLPJg33y4SZ7W_dWrehekqa_G2sphbJ_tX3Hrs0pvmvUD130hq1SIBXXP62miG7AC&dc=poctgroup&rqt=m8jH4bpBQbccEU8MZpSP5Q&cc=eaqzS8e-weZZc3W_dw_T1Q";
 function jobFacts(job) {
@@ -159,9 +158,25 @@ function OpeningCard({ job }) {
   </>;
 }
 function CareerPage() {
+  const [jobs, setJobs] = useState(null);
+  const [jobsError, setJobsError] = useState("");
   useEffect(() => {
     window.scrollTo(0, 0);
+    let ignore = false;
+    fetchPublicJobs().then((next) => {
+      if (!ignore) setJobs(next);
+    }).catch(() => {
+      if (!ignore) {
+        setJobs([]);
+        setJobsError("Open roles could not be loaded. Please refresh the page.");
+      }
+    });
+    return () => {
+      ignore = true;
+    };
   }, []);
+  const openings = jobs ?? [];
+  const hasLiveOpenings = openings.length > 0;
   return <div className="flex min-h-svh flex-col">
 
     <SiteHeader />
@@ -241,15 +256,19 @@ function CareerPage() {
             </p>
           </motion.div>
 
-          {hasLiveOpenings ? <motion.div
+          {jobs === null ? <p className="mt-8 max-w-2xl text-pretty text-muted-foreground">
+            Loading openings…
+          </p> : jobsError ? <p className="mt-8 max-w-2xl text-pretty text-muted-foreground">
+            {jobsError}
+          </p> : hasLiveOpenings ? <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={stagger}
             className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
           >
-            {careerOpenings.map((job) => <motion.div
-              key={`${job.title}-${job.team}`}
+            {openings.map((job) => <motion.div
+              key={job.id}
               variants={fadeUp}
               className="h-full"
             >
@@ -263,7 +282,7 @@ function CareerPage() {
       </section>
 
       <CareerMoments />
-      <CareerContact />
+      <CareerContact openings={openings} />
     </main>
 
     <SiteFooter />
