@@ -37,7 +37,6 @@ import {
   Section,
   SectionAura
 } from "@/components/home-section-primitives";
-import { careerOpenings } from "@/lib/career-openings";
 import { submitCareerContact } from "@/lib/form-service";
 const OFFICE_ADDRESS = "2nd Floor, Pinnacle Tower, Noida-Greater Noida Expy, Sector 142, Noida, Uttar Pradesh 201305";
 const OFFICE_MAP_SRC = "https://maps.google.com/maps?q=28.50114,77.411824&z=17&output=embed";
@@ -45,7 +44,6 @@ const OFFICE_MAPS_LINK = "https://www.google.com/maps/search/?api=1&query=28.501
 const GENERAL_ENQUIRY = "General enquiry";
 const MAX_RESUME_BYTES = 1024 * 1024;
 const ALLOWED_RESUME_EXTENSIONS = [".pdf", ".doc", ".docx"];
-const hasLiveOpenings = careerOpenings.length > 0;
 function resumeExtension(fileName) {
   const dot = fileName.lastIndexOf(".");
   return dot === -1 ? "" : fileName.slice(dot).toLowerCase();
@@ -74,7 +72,8 @@ function readResume(file) {
     reader.readAsDataURL(file);
   });
 }
-function CareerContact() {
+function CareerContact({ openings = [] }) {
+  const hasLiveOpenings = openings.length > 0;
   const [subject, setSubject] = useState("");
   const [resume, setResume] = useState(null);
   const [resumeInputKey, setResumeInputKey] = useState(0);
@@ -331,8 +330,8 @@ function CareerContact() {
                         <SelectItem value={GENERAL_ENQUIRY}>
                           {GENERAL_ENQUIRY}
                         </SelectItem>
-                        {careerOpenings.map((job) => <SelectItem
-                          key={`${job.title}-${job.team}`}
+                        {openings.map((job) => <SelectItem
+                          key={job.id}
                           value={job.title}
                         >
                           {job.title}

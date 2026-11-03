@@ -122,7 +122,7 @@ function SolutionsBySetting() {
       aria-hidden
     />
                         </div>
-                        <span className="font-mono text-xs font-bold tracking-wider text-muted-foreground/50 transition-colors duration-300 group-hover:text-[var(--accent)]">
+                        <span className="font-mono text-xs font-bold tracking-wider text-muted-foreground transition-colors duration-300 group-hover:text-[var(--accent)]">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>

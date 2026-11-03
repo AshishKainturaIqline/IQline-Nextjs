@@ -61,5 +61,8 @@ next-env.d.ts
 public.zip
 *.zip
 
+# local SQLite database and session secret
+/data/
+
 # accidental nested copy / scratch folder
 /next-site/

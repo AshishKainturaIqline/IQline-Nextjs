@@ -14,7 +14,7 @@ Dev server: [http://localhost:3000](http://localhost:3000)
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and set the SMTP values. Contact and career forms are sent from `/api/forms`. While testing, both `MAIL_TO_GENERAL` and `MAIL_TO_CAREERS` can point at one inbox.
+Copy `.env.example` to `.env.local` and configure the SMTP values. Contact and career forms post to `/api/forms`, which validates the submission and sends it through SMTP. Mailtrap Sandbox captures messages during local testing; `MAIL_TO_GENERAL` receives demo/contact submissions and `MAIL_TO_CAREERS` receives career enquiries and job applications.
 
 ## Re-sync from Vite source
 

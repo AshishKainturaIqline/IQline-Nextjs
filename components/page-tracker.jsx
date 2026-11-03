@@ -10,6 +10,7 @@ export function PageTracker() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
+    if (pathname === "/hq" || pathname.startsWith("/hq/")) return
     const query = searchParams.toString()
     const path = query ? `${pathname}?${query}` : pathname
     const timeout = setTimeout(() => {
