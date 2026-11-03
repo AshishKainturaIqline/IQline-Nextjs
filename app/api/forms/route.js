@@ -1,3 +1,5 @@
+import nodemailer from "nodemailer"
+
 const CAREER_TYPES = new Set(["career_contact", "job_application"])
 
 const TITLES = {
@@ -48,9 +50,27 @@ function recipientFor(formType) {
   return process.env.MAIL_TO_GENERAL || ""
 }
 
+function smtpConfig() {
+  const port = Number(process.env.SMTP_PORT || 587)
+  const username = process.env.SMTP_USERNAME || process.env.SMTP_USER || ""
+  const password = process.env.SMTP_PASSWORD || process.env.SMTP_PASS || ""
+  const email = process.env.SMTP_EMAIL || username
+  const from = process.env.SMTP_FROM || (email ? `IQ-Line Website <${email}>` : "")
+  const secureValue = String(process.env.SMTP_SECURE || "").toLowerCase()
+
+  return {
+    host: process.env.SMTP_HOST || "",
+    port,
+    secure: secureValue ? secureValue === "true" : port === 465,
+    username,
+    password,
+    from,
+  }
+}
+
 function isConfigured() {
-  const { GOOGLE_APPS_SCRIPT_URL, GOOGLE_APPS_SCRIPT_SECRET } = process.env
-  return Boolean(GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_SECRET)
+  const config = smtpConfig()
+  return Boolean(config.host && config.username && config.password && config.from)
 }
 
 function buildRows(data) {
@@ -151,11 +171,14 @@ function resumeAttachment(data) {
 
   const filename = String(data.resumeFileName).replace(/[^\w.\- ]/g, "") || `resume${extension}`
   return {
-    attachment: {
-      filename,
-      base64: raw,
-      contentType,
-    },
+    attachments: [
+      {
+        filename,
+        content,
+        contentType,
+        contentDisposition: "attachment",
+      },
+    ],
   }
 }
 
@@ -163,8 +186,7 @@ export async function POST(request) {
   if (!isConfigured()) {
     return Response.json({
       success: false,
-      message:
-        "Form email is not configured. Set the Google Apps Script values in .env.local and restart the dev server.",
+      message: "Form email is not configured. Set the SMTP values in .env.local and restart the dev server.",
     })
   }
 
@@ -200,62 +222,36 @@ export async function POST(request) {
   const htmlBody =
     `<h2>${escapeHtml(title)}</h2>` +
     `<table style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px">${buildRows(data)}</table>` +
-    (resume.attachment
+    (resume.attachments
       ? "<p>The resume is attached to this email and can be downloaded from the attachment.</p>"
       : "") +
     "<hr><p><small>Submitted via IQ-Line website</small></p>"
 
   try {
-    const response = await fetch(process.env.GOOGLE_APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        secret: process.env.GOOGLE_APPS_SCRIPT_SECRET,
-        to,
-        replyTo: replyToAddress(data.email),
-        subject,
-        htmlBody,
-        textBody: `${title}\n\nSubmitted via IQ-Line website`,
-        attachment: resume.attachment,
-      }),
-      redirect: "follow",
-      cache: "no-store",
-      signal: AbortSignal.timeout(20_000),
+    const smtp = smtpConfig()
+    const transport = nodemailer.createTransport({
+      host: smtp.host,
+      port: smtp.port,
+      secure: smtp.secure,
+      requireTLS: smtp.port === 587,
+      auth: {
+        user: smtp.username,
+        pass: smtp.password,
+      },
     })
 
-    const text = await response.text()
-    let result
-    try {
-      result = JSON.parse(text)
-    } catch {
-      const denied = text.includes("do not have permission")
-      return Response.json({
-        success: false,
-        message: denied
-          ? "Google blocked the form service. Redeploy the Apps Script web app with access set to Anyone."
-          : "The form reached Google, but email delivery was not confirmed.",
-      })
-    }
-
-    if (result?.success === true && result?.protocol !== 2) {
-      console.error("Apps Script deployment is outdated")
-      return Response.json({
-        success: false,
-        message: "The form email service needs to be redeployed with the latest Apps Script code.",
-      })
-    }
-
-    if (!response.ok || result?.success !== true || result?.recipient !== to) {
-      console.error("Apps Script email failed:", result?.message || response.statusText)
-      return Response.json({
-        success: false,
-        message: "Unable to send the form. Please try again.",
-      })
-    }
+    await transport.sendMail({
+      from: smtp.from,
+      to,
+      replyTo: replyToAddress(data.email),
+      subject,
+      html: htmlBody,
+      attachments: resume.attachments,
+    })
 
     return Response.json({ success: true, message: "Form submitted successfully" })
   } catch (error) {
-    console.error("Apps Script request failed:", error instanceof Error ? error.message : error)
+    console.error("SMTP email failed:", error instanceof Error ? error.message : error)
     return Response.json({
       success: false,
       message: "Unable to send the form. Please try again.",

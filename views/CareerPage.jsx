@@ -139,19 +139,19 @@ function OpeningCard({ job }) {
 
         <DialogFooter className="flex-col gap-3 border-t border-border/70 bg-muted/30 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-muted-foreground">
-            {/* Apply with your resume using the form on this page. */}
+            Apply with your resume using the form on this page.
           
           </p>
-          {/* <Button size="lg" className="w-full sm:w-auto" onClick={applyForRole}>
+          <Button size="lg" className="w-full sm:w-auto" onClick={applyForRole}>
           Apply for this role
           <ArrowRightIcon className="size-4" />
-        </Button> */}
-          <Button size="lg" className="w-full sm:w-auto" asChild>
+        </Button>
+          {/* <Button size="lg" className="w-full sm:w-auto" asChild>
             <a href={job.applyUrl} target="_blank" rel="noopener noreferrer">
               <span>Apply for this role</span>
               <ArrowRightIcon className="size-4" />
             </a>
-            </Button>
+            </Button> */}
         </DialogFooter>
       </DialogContent>
     </Dialog>
