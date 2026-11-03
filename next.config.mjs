@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  serverExternalPackages: ["nodemailer"],
+  serverExternalPackages: ["nodemailer", "mysql2"],
   turbopack: {
     root: import.meta.dirname,
     rules: {
@@ -9,6 +9,13 @@ const nextConfig = {
         as: "*.css",
       },
     },
+  },
+  async headers() {
+    const hidden = [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+    return [
+      { source: "/hq", headers: hidden },
+      { source: "/hq/:path*", headers: hidden },
+    ]
   },
   async redirects() {
     return [
